@@ -78,6 +78,11 @@ echo "add_principal -randkey ${SPN}@${REALM}"
 echo "ktadd -k ${KTB_DIR}/${SPN//\//#}.keytab -norandkey ${SPN}@${REALM}"
 done | ${KADMIN}
 
+# Making keytabs world readable
+find ${KTB_DIR} \
+    -type f \
+    -exec chmod go+r '{}' \;
+
 # Starting KDC
 echo "Starting KDC listening on ${KDC_PORT}..."
 export KRB5_KDC_PROFILE=${KRB5_CONFIG}
