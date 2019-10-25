@@ -12,11 +12,13 @@ $ docker build -t dev-kdc kdc
 ``` sh
 $ mkdir data
 $ chmod 1777 data
-$ KDC_CONTAINER=$(docker run --rm \
+$ KDC_CONTAINER=$(docker run \
+    -d --rm \
+    --name test-kdc \
     -e REALM=KAZOOTEST.ORG \
     -e SPNS="client zookeeper/localhost" \
     -v "$(pwd)/data":/kdc-data \
-    -p 1080:1080
+    -p 1080:1080 \
     dev-kdc)
 ```
 
